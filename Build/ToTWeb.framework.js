@@ -2334,8 +2334,8 @@ var ASM_CONSTS = {
     }
 
   function _GetUrlParams() {
-  		//Get the url parameters
-  		return window.location.search;
+          //Get the url parameters
+          return window.location.search.toString();
   	}
 
   function _IsTouchDevice() {
