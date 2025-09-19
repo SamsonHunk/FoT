@@ -2335,6 +2335,7 @@ var ASM_CONSTS = {
 
   function _GetUrlParams() {
           //Get the url parameters
+  		console.log("Hi hi hello!");
           return window.location.search.toString();
   	}
 
