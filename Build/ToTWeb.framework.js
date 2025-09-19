@@ -2336,7 +2336,7 @@ var ASM_CONSTS = {
   function _GetUrlParams() {
           //Get the url parameters
   		console.log("Hi hi hello!");
-  		var returnString = window.location.search.toString();
+  		var returnStr = window.location.search.toString();
   		var buffer = _malloc(lengthBytesUTF8(returnStr) + 1);
           writeStringToMemory(returnStr, buffer);
           return buffer;
