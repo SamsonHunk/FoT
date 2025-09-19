@@ -2336,7 +2336,10 @@ var ASM_CONSTS = {
   function _GetUrlParams() {
           //Get the url parameters
   		console.log("Hi hi hello!");
-          return window.location.search.toString();
+  		var returnString = window.location.search.toString();
+  		var buffer = _malloc(lengthBytesUTF8(returnStr) + 1);
+          writeStringToMemory(returnStr, buffer);
+          return buffer;
   	}
 
   function _IsTouchDevice() {
