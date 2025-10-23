@@ -2086,13 +2086,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  4563744: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 4563805: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 4563869: function() {return Module.webglContextAttributes.powerPreference;},  
- 4563927: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 4563982: function($0) {performance.now = function() { return $0; };},  
- 4564030: function($0) {performance.now = function() { return $0; };},  
- 4564078: function() {performance.now = Module['emscripten_get_now_backup'];}
+  4563712: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 4563773: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 4563837: function() {return Module.webglContextAttributes.powerPreference;},  
+ 4563895: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 4563950: function($0) {performance.now = function() { return $0; };},  
+ 4563998: function($0) {performance.now = function() { return $0; };},  
+ 4564046: function() {performance.now = Module['emscripten_get_now_backup'];}
 };
 
 
@@ -2333,9 +2333,18 @@ var ASM_CONSTS = {
       }
     }
 
+  function _GetLocalStorageValue(key) {
+      try {
+        const val = localStorage.getItem(UTF8ToString(key));
+        return val ? allocateUTF8(val) : 0;
+      } catch (e) {
+        console.error("GetLocalStorageValue error:", e);
+        return 0;
+      }
+    }
+
   function _GetUrlParams() {
           //Get the url parameters
-  		console.log("Hi hi hello!");
   		var returnStr = window.location.search.toString();
   		var buffer = _malloc(lengthBytesUTF8(returnStr) + 1);
           writeStringToMemory(returnStr, buffer);
@@ -5005,6 +5014,14 @@ var ASM_CONSTS = {
       }
       return false;
   }
+
+  function _SetLocalStorageValue(key, value) {
+      try {
+        localStorage.setItem(UTF8ToString(key), UTF8ToString(value));
+      } catch (e) {
+        console.error("SetLocalStorageValue error:", e);
+      }
+    }
 
   function ___assert_fail(condition, filename, line, func) {
       abort('Assertion failed: ' + UTF8ToString(condition) + ', at: ' + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
@@ -16212,6 +16229,7 @@ var asmLibraryArg = {
   "Connect": _Connect,
   "Disconnect": _Disconnect,
   "GetJSMemoryInfo": _GetJSMemoryInfo,
+  "GetLocalStorageValue": _GetLocalStorageValue,
   "GetUrlParams": _GetUrlParams,
   "IsTouchDevice": _IsTouchDevice,
   "JS_Accelerometer_IsRunning": _JS_Accelerometer_IsRunning,
@@ -16302,6 +16320,7 @@ var asmLibraryArg = {
   "RefreshPage": _RefreshPage,
   "RequestNativePopUp": _RequestNativePopUp,
   "Send": _Send,
+  "SetLocalStorageValue": _SetLocalStorageValue,
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
   "__cxa_begin_catch": ___cxa_begin_catch,
