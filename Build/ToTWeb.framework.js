@@ -2086,13 +2086,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  4581904: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 4581965: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 4582029: function() {return Module.webglContextAttributes.powerPreference;},  
- 4582087: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 4582142: function($0) {performance.now = function() { return $0; };},  
- 4582190: function($0) {performance.now = function() { return $0; };},  
- 4582238: function() {performance.now = Module['emscripten_get_now_backup'];}
+  4581936: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 4581997: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 4582061: function() {return Module.webglContextAttributes.powerPreference;},  
+ 4582119: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 4582174: function($0) {performance.now = function() { return $0; };},  
+ 4582222: function($0) {performance.now = function() { return $0; };},  
+ 4582270: function() {performance.now = Module['emscripten_get_now_backup'];}
 };
 
 
@@ -2330,6 +2330,16 @@ var ASM_CONSTS = {
       } else {
         HEAPF64[totalJSptr >> 3] = NaN;
         HEAPF64[usedJSptr >> 3] = NaN;
+      }
+    }
+
+  function _GetLocalStorageValue(key) {
+      try {
+        const val = localStorage.getItem(UTF8ToString(key));
+        return val ? allocateUTF8(val) : 0;
+      } catch (e) {
+        console.error("GetLocalStorageValue error:", e);
+        return 0;
       }
     }
 
@@ -5015,6 +5025,14 @@ var ASM_CONSTS = {
       }
       return false;
   }
+
+  function _SetLocalStorageValue(key, value) {
+      try {
+        localStorage.setItem(UTF8ToString(key), UTF8ToString(value));
+      } catch (e) {
+        console.error("SetLocalStorageValue error:", e);
+      }
+    }
 
   function ___assert_fail(condition, filename, line, func) {
       abort('Assertion failed: ' + UTF8ToString(condition) + ', at: ' + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
@@ -16226,6 +16244,7 @@ var asmLibraryArg = {
   "Connect": _Connect,
   "Disconnect": _Disconnect,
   "GetJSMemoryInfo": _GetJSMemoryInfo,
+  "GetLocalStorageValue": _GetLocalStorageValue,
   "GetUrlParams": _GetUrlParams,
   "IsTouchDevice": _IsTouchDevice,
   "JS_Accelerometer_IsRunning": _JS_Accelerometer_IsRunning,
@@ -16316,6 +16335,7 @@ var asmLibraryArg = {
   "RefreshPage": _RefreshPage,
   "RequestNativePopUp": _RequestNativePopUp,
   "Send": _Send,
+  "SetLocalStorageValue": _SetLocalStorageValue,
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
   "__cxa_begin_catch": ___cxa_begin_catch,
